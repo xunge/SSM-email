@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 配置mapper,mybatis通过使用mapper实现dao接口 -->
+<mapper namespace="com.xunge.springemp.dao.UserDao">
+
+    <!-- 查找邮箱数量，验证邮箱是否被注册 -->
+    <select id="findByEmail" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(email) FROM user WHERE email = #{email}
+    </select>
+
+    <!--查找用户名数量，验证用户名是否被占用-->
+    <select id="findByUser" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(username) FROM user WHERE username = #{username}
+    </select>
+
+    <!-- 用户登录 -->
+    <select id="findByName" resultType="User" parameterType="java.lang.String">
+        SELECT email,username,password FROM USER WHERE username = #{username}
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="addUser" parameterType="com.xunge.springemp.pojo.User">
+        INSERT INTO user
+        (email,username,password,state,code)
+        VALUES
+        (#{email},#{username},#{password},#{state},#{code})
+    </insert>
+
+    <update id="activeUser" parameterType="com.xunge.springemp.pojo.User">
+        UPDATE user SET state = 1 WHERE code = #{code}
+    </update>
+</mapper>
