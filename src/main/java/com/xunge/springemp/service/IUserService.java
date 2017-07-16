@@ -14,4 +14,6 @@ public interface IUserService {
     public int checkEmailExist(String email) throws Exception;
 
     public int checkUserExist(String user) throws Exception;
+
+    public boolean checkState(String username) throws Exception;
 }

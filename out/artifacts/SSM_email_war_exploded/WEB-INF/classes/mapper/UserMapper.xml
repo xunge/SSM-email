@@ -27,7 +27,13 @@
         (#{email},#{username},#{password},#{state},#{code})
     </insert>
 
+    <!-- 激活用户 -->
     <update id="activeUser" parameterType="com.xunge.springemp.pojo.User">
         UPDATE user SET state = 1 WHERE code = #{code}
     </update>
+
+    <!-- 查找该用户是否被激活 -->
+    <select id="findState" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT state FROM user WHERE username = #{username}
+    </select>
 </mapper>

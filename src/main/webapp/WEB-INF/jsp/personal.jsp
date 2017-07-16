@@ -16,7 +16,7 @@
 	<h2 class="text-center blog_title">登录成功</h2>
 	<div class="col-sm-offset-2 col-sm-10">
 		<p style="text-indent:0em;margin-top:20px;font-size:16px">
-	             你好${username} ^_^恭喜你已经成功登录~~
+	             你好 ${username}  ^_^恭喜你已经成功登录~~
 	             
 		</p>
 	</div>

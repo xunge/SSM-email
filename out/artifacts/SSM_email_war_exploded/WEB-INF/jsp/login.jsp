@@ -59,6 +59,7 @@
 								<input type="submit" class="btn btn-info btn-lg btn-block bottom-space" value="登录" />
 							</div>
 						</div>
+						${msg}
 						<%--<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 							<input type="text" class="form-control input-lg input_size" id="username" name="username" placeholder="请输入用户名" required>

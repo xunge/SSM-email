@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.xunge.springemp.dao.UserDao;
 import com.xunge.springemp.pojo.User;
 import com.xunge.springemp.service.IUserService;
 
@@ -70,22 +69,17 @@ public class LoginController {
 		String username = user.getUsername();
 		String password = user.getPassword();
 
+		System.out.println(email+"**********************");
+		System.out.println(username+"**********************");
+		System.out.println(password+"**********************");
+
+
 		userService.register(email, username, password);
 		customGenericManageableCaptchaService.removeCaptcha(request.getSession().getId());
 
-		ModelAndView mv = new ModelAndView("personal");
+		ModelAndView mv = new ModelAndView("active");
+		mv.addObject("username", username);
 		return mv;
-/*
-		Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
-		if (isResponseCorrect) {
-			userDao.addUser(user);
-			customGenericManageableCaptchaService.removeCaptcha(request.getSession().getId());
-			ModelAndView mv = new ModelAndView("personal");
-			return mv;
-		} else {
-			ModelAndView mv = new ModelAndView("register");
-			return mv;
-		}*/
 	}
 
 	/**
@@ -98,8 +92,15 @@ public class LoginController {
 	@RequestMapping("personal")
 	public ModelAndView personal(String username,String password) throws Exception{
 		if(userService.login(username, password)) {
-			ModelAndView mv = new ModelAndView("personal");
-			return mv;
+			if (userService.checkState(username)) {
+				ModelAndView mv = new ModelAndView("personal");
+				mv.addObject("username", username);
+				return mv;
+			} else {
+				ModelAndView mv = new ModelAndView("active");
+				mv.addObject("username", username);
+				return mv;
+			}
 		}else{
 			ModelAndView mv = new ModelAndView("login");
 			mv.addObject("msg", "用户名或者密码错误");
@@ -147,6 +148,12 @@ public class LoginController {
 		}
 	}
 
+	/**
+	 * 激活用户
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/active")
 	public ModelAndView active(String code) throws Exception {
 

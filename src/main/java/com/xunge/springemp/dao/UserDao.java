@@ -14,5 +14,6 @@ public interface UserDao {
 
 	public boolean activeUser(String code) throws Exception;
 
+	public int findState(String username) throws Exception;
 
 }

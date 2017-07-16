@@ -75,4 +75,13 @@ public class UserServiceImpl implements IUserService{
             return 1;
         }
     }
+
+    public boolean checkState(String username) throws Exception {
+        int result = userDao.findState(username);
+        if (result == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
